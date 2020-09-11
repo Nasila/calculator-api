@@ -18,8 +18,7 @@ app.get("/", (req, res) => {
   });
 
 app.post('/add', (req,res) => {
-    const num1 = parseFloat(req.body.num1);
-    const num2 = parseFloat(req.body.num2);
+    const {num1,num2} = req.body;
 
     if(typeof num1 === "string" || typeof num2 === "string") {
         return res.json({
@@ -35,7 +34,7 @@ app.post('/add', (req,res) => {
         });
     }
 
-    else if((num1+num2) < -10000000) {
+    else if(num1 < -10000000 || num2 < -10000000 || (num1+num2) < -10000000) {
         return res.json({
             status: 'error',
             message: 'Underflow'
@@ -54,9 +53,7 @@ app.post('/add', (req,res) => {
 });
 
 app.post('/sub', (req,res) => {
-    const num1 = parseFloat(req.body.num1);
-    const num2 = parseFloat(req.body.num2);
-
+    const {num1,num2} = req.body;
     if(typeof num1 === "string" || typeof num2 === "string") {
         return res.json({
             status: 'failure',
@@ -71,7 +68,7 @@ app.post('/sub', (req,res) => {
         });
     }
 
-    else if((num1-num2) < -10000000) {
+    else if(num1 < -10000000 || num2 < -10000000 || (num1-num2) < -10000000) {
         return res.json({
             status: 'error',
             message: 'Underflow'
@@ -100,14 +97,14 @@ app.post('/multiply', (req,res) => {
         });
     }
 
-    else if((num1*num2) > 10000000) {
+    else if(num1 > 10000000 || num2 > 10000000 || (num1*num2) > 10000000) {
         return res.json({
             status: 'error',
             message: 'Overflow'
         });
     }
 
-    else if((num1*num2) < -10000000) {
+    else if(num1 < -10000000 || num2 < -10000000 || (num1*num2) < -10000000) {
         return res.json({
             status: 'error',
             message: 'Underflow'
