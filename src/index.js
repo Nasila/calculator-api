@@ -18,7 +18,8 @@ app.get("/", (req, res) => {
   });
 
 app.post('/add', (req,res) => {
-    const {num1, num2} = req.body;
+    const num1 = parseFloat(req.body.num1);
+    const num2 = parseFloat(req.body.num2);
 
     if(typeof num1 === "string" || typeof num2 === "string") {
         return res.json({
@@ -34,7 +35,7 @@ app.post('/add', (req,res) => {
         });
     }
 
-    else if(num1 < -10000000 || num2 < -10000000 || (num1+num2) < -10000000) {
+    else if((num1+num2) < -10000000) {
         return res.json({
             status: 'error',
             message: 'Underflow'
@@ -53,7 +54,8 @@ app.post('/add', (req,res) => {
 });
 
 app.post('/sub', (req,res) => {
-    const {num1, num2} = req.body;
+    const num1 = parseFloat(req.body.num1);
+    const num2 = parseFloat(req.body.num2);
 
     if(typeof num1 === "string" || typeof num2 === "string") {
         return res.json({
@@ -69,7 +71,7 @@ app.post('/sub', (req,res) => {
         });
     }
 
-    else if(num1 < -10000000 || num2 < -10000000 || (num1-num2) < -10000000) {
+    else if((num1-num2) < -10000000) {
         return res.json({
             status: 'error',
             message: 'Underflow'
@@ -88,7 +90,8 @@ app.post('/sub', (req,res) => {
 });
 
 app.post('/multiply', (req,res) => {
-    const {num1, num2} = req.body;
+    const num1 = parseFloat(req.body.num1);
+    const num2 = parseFloat(req.body.num2);
 
     if(typeof num1 === "string" || typeof num2 === "string") {
         return res.json({
@@ -97,14 +100,14 @@ app.post('/multiply', (req,res) => {
         });
     }
 
-    else if(num1 > 10000000 || num2 > 10000000 || (num1*num2) > 10000000) {
+    else if((num1*num2) > 10000000) {
         return res.json({
             status: 'error',
             message: 'Overflow'
         });
     }
 
-    else if(num1 < -10000000 || num2 < -10000000 || (num1*num2) < -10000000) {
+    else if((num1*num2) < -10000000) {
         return res.json({
             status: 'error',
             message: 'Underflow'
@@ -123,51 +126,41 @@ app.post('/multiply', (req,res) => {
 });
 
 app.post('/division', (req,res) => {
-    const {num1, num2} = req.body;
+    const num1 = parseFloat(req.body.num1);
+    const num2 = parseFloat(req.body.num2);
 
     if(typeof num1 === "string" || typeof num2 === "string") {
         return res.json({
             status: 'failure',
-            message: 'invalid data types'
-        });
-    }
-
-    else if(num1 > 10000000 || num2 > 10000000) {
-        return res.json({
-            status: 'error',
-            message: 'Overflow'
+            message: 'Invalid data types'
         });
     }
 
     else {
-        let data = {};
         if(num2 === 0) {
-            data = {
+            return res.json({
                 status: 'error',
                 message : 'Cannot divide by zero'
-            }    
+            });    
         }
         else {
             let result = num1 / num2;
             if(result > 10000000) {
-                data = {
+                return res.json({
                     status:'error',
                     message:'Overflow'
-                }
+                });
             }
             else {
-                data = {
+                return res.json({
                     status: 'success',
                     message: 'The division of given numbers',
                     result
-                } 
+                }); 
             }
             
         }
         
-        return res.json({
-             data
-            });
     }
   
 });
