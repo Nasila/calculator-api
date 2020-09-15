@@ -73,25 +73,22 @@ app.post('/sub', (req,res) => {
 });
 
 app.post('/multiply', (req,res) => {
-    const num1 = parseFloat(req.body.num1);
-    const num2 = parseFloat(req.body.num2);
-
+    const {num1,num2} = req.body;
     if(typeof num1 === "string" || typeof num2 === "string") {
         return res.json({
-            status: 'failure',
+            status: 'error',
             message: 'Invalid data types'
         });
     }
 
-    else if(num1 > 1000000 || num2 > 1000000 || (num1*num2) > 1000000) {
-        return res.json({
-            status: 'error',
-            message: 'Overflow'
-        });
-    }
-
-    else {
         let result = num1 * num2;
+
+        if(result > 1000000) {
+          return res.json({
+              status: 'error',
+              message: 'Overflow',
+              });
+        }
         return res.json({
             status: 'success',
             message: 'The product of given numbers',
@@ -102,12 +99,11 @@ app.post('/multiply', (req,res) => {
 });
 
 app.post('/division', (req,res) => {
-    const num1 = parseFloat(req.body.num1);
-    const num2 = parseFloat(req.body.num2);
+    const {num1,num2} = req.body;
 
     if(typeof num1 === "string" || typeof num2 === "string") {
         return res.json({
-            status: 'failure',
+            status: 'error',
             message: 'Invalid data types'
         });
     }
@@ -121,7 +117,7 @@ app.post('/division', (req,res) => {
         }
         else {
             let result = num1 / num2;
-
+                
                 return res.json({
                     status: 'success',
                     message: 'The division of given numbers',
