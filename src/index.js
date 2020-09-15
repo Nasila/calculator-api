@@ -94,7 +94,6 @@ app.post('/multiply', (req,res) => {
             message: 'The product of given numbers',
             result
             });
-    }
 
 });
 
@@ -108,25 +107,19 @@ app.post('/division', (req,res) => {
         });
     }
 
-    else {
-        if(num2 === 0) {
+    if(num2 === 0) {
             return res.json({
                 status: 'error',
                 message : 'Cannot divide by zero'
             });
         }
-        else {
-            let result = num1 / num2;
-                
-                return res.json({
-                    status: 'success',
-                    message: 'The division of given numbers',
-                    result
-                });
+    let result = num1 / num2;
 
-        }
-
-    }
+        return res.json({
+            status: 'success',
+            message: 'The division of given numbers',
+            result
+      });
 
 });
 
