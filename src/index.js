@@ -27,7 +27,7 @@ app.post('/add', (req,res) => {
         });
     }
 
-    else if(num1 > 10000000 || num2 > 10000000 || (num1+num2) > 10000000) {
+    else if(num1 > 1000000 || num2 > 1000000 || (num1+num2) > 1000000) {
         return res.json({
             status: 'error',
             message: 'Overflow'
@@ -42,7 +42,7 @@ app.post('/add', (req,res) => {
             sum
             });
     }
-  
+
 });
 
 app.post('/sub', (req,res) => {
@@ -54,7 +54,7 @@ app.post('/sub', (req,res) => {
         });
     }
 
-    else if(num1 < 0 || num2 < 0 || (num1-num2) < 0) {
+    else if(num1 < -1000000 || num2 < -1000000 || (num1-num2) < -1000000) {
         return res.json({
             status: 'error',
             message: 'Underflow'
@@ -69,7 +69,7 @@ app.post('/sub', (req,res) => {
             difference
             });
     }
-  
+
 });
 
 app.post('/multiply', (req,res) => {
@@ -83,7 +83,7 @@ app.post('/multiply', (req,res) => {
         });
     }
 
-    else if(num1 > 10000000 || num2 > 10000000 || (num1*num2) > 10000000) {
+    else if(num1 > 1000000 || num2 > 1000000 || (num1*num2) > 1000000) {
         return res.json({
             status: 'error',
             message: 'Overflow'
@@ -98,7 +98,7 @@ app.post('/multiply', (req,res) => {
             result
             });
     }
-  
+
 });
 
 app.post('/division', (req,res) => {
@@ -117,21 +117,21 @@ app.post('/division', (req,res) => {
             return res.json({
                 status: 'error',
                 message : 'Cannot divide by zero'
-            });    
+            });
         }
         else {
             let result = num1 / num2;
-        
+
                 return res.json({
                     status: 'success',
                     message: 'The division of given numbers',
                     result
-                }); 
-            
+                });
+
         }
-        
+
     }
-  
+
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
